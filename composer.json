@@ -1,0 +1,30 @@
+{
+    "name": "gnahotelsolutions/laravel-placetopay",
+    "description": "Interact with PlaceToPay API using Laravel facades",
+    "keywords": [
+        "gnahotelsolutions",
+        "laravel-placetopay"
+    ],
+    "homepage": "https://github.com/gnahotelsolutions/laravel-placetopay",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "David Llop",
+            "email": "dllop@gnahs.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GNAHotelSolutions\\LaravelPlaceToPay\\": "src"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
