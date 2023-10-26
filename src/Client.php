@@ -59,13 +59,13 @@ class Client
             ->object();
     }
 
-    public function querySession(string $sessionId): PaymentResponse
+    public function querySession(string $sessionId): object
     {
         return Http::asJson()->post("{$this->settings->endpoint}/api/session/$sessionId", $this->getAuth())
             ->object();
     }
 
-    public function reverse(string $reference): PaymentResponse
+    public function reverse(string $reference): object
     {
         return Http::asJson()->post("{$this->settings->endpoint}/api/reverse", [
             ...$this->getAuth(),
