@@ -7,7 +7,11 @@ use Illuminate\Support\Carbon;
 
 class Client
 {
-    public function __construct(protected object $settings)
+    public function __construct(
+        protected string $login,
+        protected string $secretKey,
+        protected string $endpoint,
+    )
     {
     }
 
@@ -30,7 +34,7 @@ class Client
         string $userAgent,
     ): object
     {
-        return Http::asJson()->post("{$this->settings->endpoint}/api/session", [
+        return Http::asJson()->post("{$this->endpoint}/api/session", [
             'locale' => $this->getLocale($locale),
             ...$this->getAuth(),
             'payment' => [
@@ -61,13 +65,13 @@ class Client
 
     public function querySession(string $sessionId): object
     {
-        return Http::asJson()->post("{$this->settings->endpoint}/api/session/$sessionId", $this->getAuth())
+        return Http::asJson()->post("{$this->endpoint}/api/session/$sessionId", $this->getAuth())
             ->object();
     }
 
     public function reverse(string $reference): object
     {
-        return Http::asJson()->post("{$this->settings->endpoint}/api/reverse", [
+        return Http::asJson()->post("{$this->endpoint}/api/reverse", [
             ...$this->getAuth(),
             'internalReference' => $reference
         ])
@@ -90,10 +94,10 @@ class Client
 
         return [
             'auth' => [
-                'login' => $this->settings->code_client,
+                'login' => $this->login,
                 'nonce' => base64_encode($randomValue),
                 'seed' => $seed,
-                'tranKey' => base64_encode(sha1($randomValue . $seed . $this->settings->password, true)),
+                'tranKey' => base64_encode(sha1($randomValue . $seed . $this->secretKey, true)),
             ]
         ];
     }
